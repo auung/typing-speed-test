@@ -2,20 +2,22 @@ import { useEffect, useState } from 'react';
 
 function Timer({ isRunning, setIsRunning, time, setIsTimeUp }) {
   let [displayTime, setDisplayTime] = useState(time);
-  let [pointer, setPointer] = useState(0);
+  const [intervalID, setIntervalID] = useState();
+  const [timeoutID, setTimeoutID] = useState();
 
   useEffect(() => {
     if (isRunning) {
-      const id = setInterval(() => {
+      const intervalPointer = setInterval(() => {
         setDisplayTime(d => --d);
       }, 1000)
-      setPointer(id);
+      setIntervalID(intervalPointer);
 
-      setTimeout(() => {
-        clearInterval(id);
+      const timeoutPointer = setTimeout(() => {
+        clearInterval(intervalPointer);
         setIsRunning(false);
         setIsTimeUp(true);
       }, time*1000)
+      setTimeoutID(timeoutPointer);
     }
   }, [isRunning, time, setIsRunning, setIsTimeUp])
 
@@ -23,7 +25,8 @@ function Timer({ isRunning, setIsRunning, time, setIsTimeUp }) {
     setIsRunning(false);
     setIsTimeUp(false);
     setDisplayTime(time);
-    clearInterval(pointer);
+    clearInterval(intervalID);
+    clearTimeout(timeoutID);
   }
 
   return (
