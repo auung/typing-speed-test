@@ -14,6 +14,12 @@ const StyledApp = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .wpm {
+      width: 150px;
+      display: flex;
+      justify-content: space-between;
+    }
   }
 `
 

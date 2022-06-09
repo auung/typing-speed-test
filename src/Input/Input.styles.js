@@ -7,14 +7,15 @@ const StyledInput = styled.div`
   .test_paragraph {
     width: 500px;
     height: 400px;
-    font-size: 24px;
+    font-size: 20px;
     line-height: 2em;
     letter-spacing: 2px;
     font-weight: bold;
-    color: #C6C6C6;
+    color: #424242;
     background-color: white;
     padding: 1em;
     margin: 0;
+    text-align: justify;
   }
 
   .test_input {
@@ -23,7 +24,7 @@ const StyledInput = styled.div`
     left: -1px;
     width: 500px;
     height: 400px;
-    background: rgb(0, 0, 0, 0);
+    opacity: 0;
     word-break: break-word;
     padding: 1em;
     font-family: inherit;
@@ -31,6 +32,30 @@ const StyledInput = styled.div`
     line-height: 2em;
     letter-spacing: 2px;
     font-weight: bold;
+  }
+
+  .current {
+    animation: fade 0.6s ease-in-out alternate infinite;
+  }
+
+  .correct {
+    color: #ffffff;
+    background-color: #00AE28;
+  }
+
+  .incorrect {
+    color: #ffffff;
+    background-color: #E61010;
+  }
+
+  @keyframes fade {
+    from {
+      border-bottom: 4px black solid;
+    }
+
+    to {
+      border-bottom: none;
+    }
   }
 `
 

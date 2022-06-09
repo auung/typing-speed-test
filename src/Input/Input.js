@@ -1,44 +1,86 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from "react";
+import useDidUpdateEffect from '../hooks/useDidUpdateEffect.js';
+import useFetch from "../hooks/useFetch.js";
 import StyledInput from "./Input.styles";
+import { calcWpm, getTextArray } from "./Input.utils.js";
 
 function Input({ isRunning, setIsRunning, isTimeUp, setWpm, time }) {
-  const [text, setText] = useState("");
-  const [txtArr, setTxtArr] = useState();
+  const {data, error} = useFetch();
+  const [text, setText] = useState();
+  const [inputText, setInputText] = useState([]);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (isTimeUp) {
-      const arr = text.split("");
-      setTxtArr(arr);
-      const wpm = (text.length / 5) / (time / 60);
-      setWpm(Math.round(wpm))
+    if (data) {
+      setText(getTextArray(data));
     }
-  }, [isTimeUp, setWpm, time]);
+    // eslint-disable-next-line
+  }, [data])
 
-  useEffect(() => {
+  function updateArray(count, className) {
+    let newArray = [...text];
+    newArray[count].status = className;
+    setText(newArray);
+  }
+
+  function verify() {
+    if (inputText.length > count) {
+      if (inputText[count] === text[count].letter) {
+        updateArray(count, "correct");
+      } else {
+        updateArray(count, "incorrect");
+      }
+      setCount(c => ++c);
+      updateArray(count + 1, "current");
+    } else if (inputText.length) {
+      updateArray(count, "");
+      updateArray(count - 1, "current");
+      setCount(c => --c);
+    }
+  }
+
+  function handleTimeUp() {
     if (!isRunning) {
-      setText("");
+      if (isTimeUp) {
+        const total = inputText.length;
+        const correct = text.filter(i => i.status === "correct").length;
+        const incorrect = text.filter(i => i.status === "incorrect").length;
+        console.log(total, correct, incorrect);
+        setWpm(calcWpm(total, correct, incorrect, time));
+      } else {
+        setText(getTextArray(data));
+        setWpm({gross: 0, net: 0});
+        setInputText([]);
+        setCount(0);
+      }
     }
-    console.log(txtArr);
-  }, [isRunning, txtArr]);
+  }
+
+  useDidUpdateEffect(verify, [inputText]);
+  useDidUpdateEffect(handleTimeUp, [isRunning, isTimeUp]);
 
   return (
     <StyledInput>
       <p className="test_paragraph">
-        When I was a little boy in elementary school, the neighborhood kids and I all looked forward to playing so many games in my backyard during the long summer holidays between grades.
+        {text && 
+          text.map(i => <span key={i.id} className={i.status}>{i.letter}</span>)
+        }
       </p>
       <form action="#">
-        <textarea
+        <input
           type="text"
           className="test_input"
           autoComplete="off"
-          value={text}
+          value={inputText.join("")}
           onInput={e => {
-            setText(e.target.value);
+            setInputText(c => [...e.target.value]);
             setIsRunning(true);
+            // console.log(e.key);
           }}
           disabled={isTimeUp}
-        ></textarea>
+        />
       </form>
+      { error && <div>{ error }</div>}
     </StyledInput>
   );
 }

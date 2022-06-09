@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-function Timer({ isRunning, setIsRunning, time, setIsTimeUp }) {
+function Timer({ isRunning, time, setIsRunning, setIsTimeUp }) {
   let [displayTime, setDisplayTime] = useState(time);
   const [intervalID, setIntervalID] = useState();
   const [timeoutID, setTimeoutID] = useState();
