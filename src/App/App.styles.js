@@ -9,16 +9,15 @@ const StyledApp = styled.div`
 
   .container {
     background-color: #EDEDED;
-    width: 700px;
-    height: 500px;
+    width: 1500px;
     display: flex;
     flex-direction: column;
     align-items: center;
 
     .wpm {
-      width: 150px;
       display: flex;
-      justify-content: space-between;
+      gap: 50px;
+      margin: 50px 0;
     }
   }
 `

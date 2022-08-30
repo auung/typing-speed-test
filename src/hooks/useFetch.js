@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 
-function useFetch() {
-  const url = "http://localhost:8000/paragraph";
+function useFetch(reset) {
+
+  const url = process.env.REACT_APP_ROUTE;
   const [data, setData] = useState();
-  const [error, setError] = useState();
 
   useEffect(() => {
     fetch(url)
@@ -14,14 +14,13 @@ function useFetch() {
         return res.json();
       })
       .then(res => {
-        setData(res[0].content);
+        setData(res);
       })
       .catch(err => {
-        err.json().then(body => setError(body));
+        console.log(err);
       })
-  }, [url])
-
-  return {data, error};
+  }, [reset, url])
+  return data;
 }
 
 export default useFetch;

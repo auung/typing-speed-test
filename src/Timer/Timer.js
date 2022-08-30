@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-function Timer({ isRunning, time, setIsRunning, setIsTimeUp }) {
+function Timer({ isRunning, time, setIsRunning, setIsTimeUp, reset, setReset}) {
   let [displayTime, setDisplayTime] = useState(time);
   const [intervalID, setIntervalID] = useState();
   const [timeoutID, setTimeoutID] = useState();
@@ -21,7 +21,8 @@ function Timer({ isRunning, time, setIsRunning, setIsTimeUp }) {
     }
   }, [isRunning, time, setIsRunning, setIsTimeUp])
 
-  function reset() {
+  function resetTimer() {
+    setReset(!reset);
     setIsRunning(false);
     setIsTimeUp(false);
     setDisplayTime(time);
@@ -32,7 +33,7 @@ function Timer({ isRunning, time, setIsRunning, setIsTimeUp }) {
   return (
     <div className="timer">
       <p align="center">{displayTime}</p>
-      <button onClick={reset}>Reset</button>
+      <button onClick={resetTimer}>Reset</button>
     </div>
   );
 }

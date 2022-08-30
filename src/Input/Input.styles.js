@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 const StyledInput = styled.div`
-  width: 500px;
+  /* width: 1300px; */
   position: relative;
 
   .test_paragraph {
-    width: 500px;
-    height: 400px;
+    width: 100ch;
+    overflow: hidden;
     font-size: 20px;
     line-height: 2em;
     letter-spacing: 2px;
@@ -20,21 +20,14 @@ const StyledInput = styled.div`
 
   .test_input {
     position: absolute;
-    top: -1px;
-    left: -1px;
-    width: 500px;
-    height: 400px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     opacity: 0;
-    word-break: break-word;
-    padding: 1em;
-    font-family: inherit;
-    font-size: 24px;
-    line-height: 2em;
-    letter-spacing: 2px;
-    font-weight: bold;
   }
 
-  .current {
+   .current {
     animation: fade 0.6s ease-in-out alternate infinite;
   }
 
@@ -46,6 +39,19 @@ const StyledInput = styled.div`
   .incorrect {
     color: #ffffff;
     background-color: #E61010;
+  }
+
+  .blurred::after {
+    content: "Click to focus";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(5px)
   }
 
   @keyframes fade {

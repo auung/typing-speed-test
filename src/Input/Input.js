@@ -1,18 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import useDidUpdateEffect from '../hooks/useDidUpdateEffect.js';
 import useFetch from "../hooks/useFetch.js";
 import StyledInput from "./Input.styles";
 import { calcWpm, getTextArray } from "./Input.utils.js";
 
-function Input({ isRunning, setIsRunning, isTimeUp, setWpm, time }) {
-  const {data, error} = useFetch();
+function Input({ isRunning, setIsRunning, isTimeUp, setWpm, time, reset }) {
+  const data = useFetch(reset);
   const [text, setText] = useState();
   const [inputText, setInputText] = useState([]);
   const [count, setCount] = useState(0);
+  const [textBlur, setTextBlur] = useState(false);
+  const totalCount = useRef(0);
+  const errorCount = useRef(0);
 
   useEffect(() => {
     if (data) {
       setText(getTextArray(data));
+      console.log(text);
     }
     // eslint-disable-next-line
   }, [data])
@@ -25,9 +29,13 @@ function Input({ isRunning, setIsRunning, isTimeUp, setWpm, time }) {
 
   function verify() {
     if (inputText.length > count) {
+      totalCount.current = totalCount.current + 1;
+      console.log(text);
+      console.log(count);
       if (inputText[count] === text[count].letter) {
         updateArray(count, "correct");
       } else {
+        errorCount.current = errorCount.current + 1;
         updateArray(count, "incorrect");
       }
       setCount(c => ++c);
@@ -42,11 +50,10 @@ function Input({ isRunning, setIsRunning, isTimeUp, setWpm, time }) {
   function handleTimeUp() {
     if (!isRunning) {
       if (isTimeUp) {
-        const total = inputText.length;
-        const correct = text.filter(i => i.status === "correct").length;
+        const total = totalCount.current;
+        const error = errorCount.current;
         const incorrect = text.filter(i => i.status === "incorrect").length;
-        console.log(total, correct, incorrect);
-        setWpm(calcWpm(total, correct, incorrect, time));
+        setWpm(calcWpm(total, error, incorrect, time));
       } else {
         setText(getTextArray(data));
         setWpm({gross: 0, net: 0});
@@ -59,9 +66,13 @@ function Input({ isRunning, setIsRunning, isTimeUp, setWpm, time }) {
   useDidUpdateEffect(verify, [inputText]);
   useDidUpdateEffect(handleTimeUp, [isRunning, isTimeUp]);
 
+  function getTextClass() {
+    return ["test_paragraph", (textBlur ? "blurred" : "")];
+  }
+
   return (
     <StyledInput>
-      <p className="test_paragraph">
+      <p className={getTextClass().join(" ")}>
         {text && 
           text.map(i => <span key={i.id} className={i.status}>{i.letter}</span>)
         }
@@ -75,14 +86,15 @@ function Input({ isRunning, setIsRunning, isTimeUp, setWpm, time }) {
           onInput={e => {
             setInputText(c => [...e.target.value]);
             setIsRunning(true);
-            // console.log(e.key);
           }}
+          onFocus={() => setTextBlur(false)}
+          onBlur={() => setTextBlur(true)}
           disabled={isTimeUp}
+          autoFocus
         />
       </form>
-      { error && <div>{ error }</div>}
     </StyledInput>
-  );
+  )
 }
 
 export default Input;
