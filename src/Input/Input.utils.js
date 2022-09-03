@@ -3,17 +3,13 @@
 // The first object has status value of "current".
 export function getTextArray(paragraph) {
   const array = [];
-  const temp1 = paragraph[0].content.split("");
-  const temp2 = paragraph[1].content.split("");
-  for (let i = 0; i < temp1.length; i++) {
+  const temp = paragraph[0].content.split("");
+  for (let i = 0; i < temp.length; i++) {
     if (i === 0) {
-      array.push({letter: temp1[i], status: "current", id: i});
+      array.push({letter: temp[i], status: "current", id: i});
     } else {
-      array.push({letter: temp1[i], status: "", id: i});
+      array.push({letter: temp[i], status: "", id: i});
     }
-  }
-  for (let i = 0; i < temp2.length; i++) {
-    array.push({letter: temp2[i], status: "", id: i + temp1.length});
   }
   return array;
 }
