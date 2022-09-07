@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { Context } from "../App/App";
-import Button from "../GlobalStyles/Button.styles";
-import ContainerFlex from "../GlobalStyles/ContainerFlex.styles";
+import Button from "../../GlobalStyles/Button.styles";
+import ContainerFlex from "../../GlobalStyles/ContainerFlex.styles";
 import { Clock } from "./Timer.styles";
 
 function Timer() {
@@ -43,7 +43,7 @@ function Timer() {
   }
 
   function formatSeconds(second) {
-    return (second === 60) ? "01:00" : (second === 0) ? "00:00" : `00:${second}`;
+    return (second === 60) ? "01:00" : (second < 10) ? `00:0${second}` : `00:${second}`;
   }
 
   return (

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import useDidUpdateEffect from '../hooks/useDidUpdateEffect.js';
-import useFetch from "../hooks/useFetch.js";
+import useDidUpdateEffect from '../../hooks/useDidUpdateEffect.js';
+import useFetch from "../../hooks/useFetch.js";
 import  { StyledInput, Paragraph, InputField, Letter } from "./Input.styles";
 import { calcWpm, getTextArray } from "./Input.utils.js";
 
