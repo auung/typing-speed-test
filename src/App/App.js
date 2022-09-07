@@ -1,26 +1,47 @@
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 import StyledApp from "./App.styles.js";
-import Timer from '../Timer/Timer.js';
+import Navbar from "../Navbar/Navbar.js";
 import Input from '../Input/Input.js';
+import { ThemeProvider } from "styled-components";
+
+export const Context = createContext();
 
 function App() {
   const time = 60;
-  const [reset, setReset] = useState(true);
   const [isRunning, setIsRunning] = useState(false);
   const [isTimeUp, setIsTimeUp] = useState(false);
-  const [wpm, setWpm] = useState({gross: 0, net: 0});
+  const [reset, setReset] = useState(true);
+  const [dark, setDark] = useState(false);
+  const [wpm, setWpm] = useState({gross: 0, net: 0, accuracy: 0});
+
+  const TimerProps = {
+    time: time,
+    isRunning: isRunning,
+    setIsRunning: setIsRunning,
+    setIsTimeUp: setIsTimeUp,
+    reset: reset,
+    setReset: setReset
+  }
+
+  const NavProps = {
+    dark: dark,
+    setDark: setDark,
+    wpm: wpm
+  }
+
+  const theme = {
+    green: "#5BF1A0",
+    white: "#000000",
+    black: "#06120C",
+    red: "#F17F5B"
+  }
 
   return (
     <StyledApp>
-      <div className="container">
-        <Timer
-          isRunning={isRunning}
-          time={time}
-          setIsRunning={setIsRunning}
-          setIsTimeUp={setIsTimeUp}
-          reset={reset}
-          setReset={setReset}
-        />
+      <ThemeProvider theme={theme}>
+        <Context.Provider value={{TimerProps: TimerProps, NavProps: NavProps}}>
+          <Navbar />
+        </Context.Provider>
         <Input
           isRunning={isRunning}
           setIsRunning={setIsRunning}
@@ -29,14 +50,7 @@ function App() {
           time={time}
           reset={reset}
         />
-        { wpm &&
-          <div className="wpm">
-            <span>Gross: {wpm.gross}</span>
-            <span>Net: {wpm.net}</span>
-            <span>Accuracy: {wpm.accuracy}%</span>
-          </div>
-        }
-      </div>
+      </ThemeProvider>
     </StyledApp>
   );
 }

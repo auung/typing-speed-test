@@ -1,68 +1,45 @@
-import styled from 'styled-components';
+import styled, { css, keyframes }  from 'styled-components';
 
-const StyledInput = styled.div`
-  /* width: 1300px; */
-  position: relative;
+export const StyledInput = styled.div`
+  width: 75%;
+  margin: auto;
+`
 
-  .test_paragraph {
-    width: 100ch;
-    overflow: hidden;
-    font-size: 20px;
-    line-height: 2em;
-    letter-spacing: 2px;
-    font-weight: bold;
-    color: #424242;
-    background-color: white;
-    padding: 1em;
-    margin: 0;
-    text-align: justify;
+export const Paragraph = styled.p`
+  font-size: 1.5rem;
+  line-height: 2em;
+  color: ${props => props.theme.black};
+  padding: 1.5em 0;
+`
+
+const Fade = props => keyframes`
+  0% {
+    border-bottom: ${props.theme.black} 4px solid;
   }
 
-  .test_input {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-  }
-
-   .current {
-    animation: fade 0.6s ease-in-out alternate infinite;
-  }
-
-  .correct {
-    color: #ffffff;
-    background-color: #00AE28;
-  }
-
-  .incorrect {
-    color: #ffffff;
-    background-color: #E61010;
-  }
-
-  .blurred::after {
-    content: "Click to focus";
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    backdrop-filter: blur(5px)
-  }
-
-  @keyframes fade {
-    from {
-      border-bottom: 4px black solid;
-    }
-
-    to {
-      border-bottom: none;
-    }
+  100% {
+    border-bottom: none;
   }
 `
 
-export default StyledInput;
+export const Letter = styled.span`
+  animation: ${props => 
+    (props.status === "current") && css`${Fade} 0.6s ease-in-out alternate infinite`};
+  
+  background-color: ${props => {
+    switch (props.status) {
+      case "correct":
+        return props.theme.green;
+      case "incorrect":
+        return props.theme.red;
+      default:
+        return "";
+    }
+  }};
+`
+
+export const InputField = styled.input`
+  opacity: 0;
+  width: 0;
+  height: 0;
+`

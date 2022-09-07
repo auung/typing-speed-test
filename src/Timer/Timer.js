@@ -1,6 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { Context } from "../App/App";
+import Button from "../GlobalStyles/Button.styles";
+import ContainerFlex from "../GlobalStyles/ContainerFlex.styles";
+import { Clock } from "./Timer.styles";
 
-function Timer({ isRunning, time, setIsRunning, setIsTimeUp, reset, setReset}) {
+function Timer() {
+  const {
+    time,
+    isRunning,
+    setIsRunning,
+    setIsTimeUp,
+    reset,
+    setReset
+  } = useContext(Context).TimerProps;
   let [displayTime, setDisplayTime] = useState(time);
   const [intervalID, setIntervalID] = useState();
   const [timeoutID, setTimeoutID] = useState();
@@ -30,11 +42,15 @@ function Timer({ isRunning, time, setIsRunning, setIsTimeUp, reset, setReset}) {
     clearTimeout(timeoutID);
   }
 
+  function formatSeconds(second) {
+    return (second === 60) ? "01:00" : (second === 0) ? "00:00" : `00:${second}`;
+  }
+
   return (
-    <div className="timer">
-      <p align="center">{displayTime}</p>
-      <button onClick={resetTimer}>Reset</button>
-    </div>
+    <ContainerFlex>
+      <Clock>{formatSeconds(displayTime)}</Clock>
+      <Button onClick={resetTimer}>reset</Button>
+    </ContainerFlex>
   );
 }
 
