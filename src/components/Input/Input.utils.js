@@ -4,7 +4,7 @@
 export function getTextArray(paragraph) {
   const array = [];
   const temp = paragraph[0].content.split("");
-  for (let i = 0; i < temp.length; i++) {
+  for (let i = 0; i <= temp.length; i++) {
     if (i === 0) {
       array.push({letter: temp[i], status: "current", id: i});
     } else {
@@ -19,4 +19,35 @@ export function calcWpm(total, error, incorrect, time) {
   let net = Math.round(((total / 5) - incorrect) / (time / 60));
   let accuracy = Math.round(((total - error) / total) * 100);
   return {gross, net, accuracy};
+}
+
+const newLetter = (letter, status) => {
+  const newItem = letter;
+  newItem.status = status;
+  return newItem;
+}
+
+export const reducer = (state, action) => {
+  switch (action.type) {
+    case "correct":
+      return state.map(letter => (letter.id === action.id) ? newLetter(letter, "correct") : letter);
+    case "incorrect":
+      return state.map(letter => (letter.id === action.id) ? newLetter(letter, "incorrect") : letter);
+    case "current":
+      return state.map(letter => (letter.id === action.id) ? newLetter(letter, "current") : letter);
+    case "previous":
+      return state.map((letter) => {
+        if (letter.id === action.id) {
+          return newLetter(letter, "current");
+        }
+        if (letter.id === action.id + 1) {
+          return newLetter(letter, "");
+        }
+        return letter;
+      });
+    case "first":
+      return action.payload;
+    default:
+      return [];
+  }
 }
