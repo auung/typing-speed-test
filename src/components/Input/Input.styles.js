@@ -3,6 +3,8 @@ import styled, { css, keyframes }  from 'styled-components';
 export const StyledInput = styled.div`
   width: 75%;
   margin: auto;
+  display: flex;
+  justify-content: center;
 `
 
 export const Paragraph = styled.p`

@@ -3,6 +3,7 @@ import useDidUpdateEffect from '../../hooks/useDidUpdateEffect.js';
 import useFetch from "../../hooks/useFetch.js";
 import  { StyledInput, Paragraph, InputField, Letter } from "./Input.styles";
 import { calcWpm, getTextArray, reducer } from "./Input.utils.js";
+import Loader from "../Loader/Loader.js";
 
 function Input({ isRunning, setIsRunning, isTimeUp, setWpm, time, reset }) {
   const {data, loading} = useFetch(reset);
@@ -54,7 +55,7 @@ function Input({ isRunning, setIsRunning, isTimeUp, setWpm, time, reset }) {
 
   return (
     <StyledInput>
-      { loading && <span>Loading</span> }
+      { loading && <Loader /> }
       <Paragraph>
         {text &&
           text.map(i => <Letter key={i.id} status={i.status}>{i.letter}</Letter>)
