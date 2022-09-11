@@ -14,9 +14,9 @@ export function getTextArray(paragraph) {
   return array;
 }
 
-export function calcWpm(total, error, incorrect, time) {
-  let gross = Math.round((total / 5) / (time / 60));
-  let net = Math.round(((total / 5) - incorrect) / (time / 60));
+export function calcWpm(total, netTotal, error, incorrect, time) {
+  let gross = Math.round((netTotal / 5) / (time / 60));
+  let net = Math.round(((netTotal / 5) - incorrect) / (time / 60));
   let accuracy = Math.round(((total - error) / total) * 100);
   return {gross, net, accuracy};
 }
@@ -45,6 +45,8 @@ export const reducer = (state, action) => {
         }
         return letter;
       });
+    case "timeup":
+      return state.map(letter => (letter.status === "current") ? newLetter(letter, "") : letter);
     case "first":
       return action.payload;
     default:

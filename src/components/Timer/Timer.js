@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Context } from "../App/App";
+import { Context } from "../Home/Home";
 import Button from "../../GlobalStyles/Button.styles";
 import ContainerFlex from "../../GlobalStyles/ContainerFlex.styles";
 import { Clock } from "./Timer.styles";
@@ -34,9 +34,9 @@ function Timer() {
   }, [isRunning, time, setIsRunning, setIsTimeUp])
 
   function resetTimer() {
-    setReset(!reset);
     setIsRunning(false);
     setIsTimeUp(false);
+    setReset(!reset);
     setDisplayTime(time);
     clearInterval(intervalID);
     clearTimeout(timeoutID);

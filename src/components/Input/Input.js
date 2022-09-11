@@ -5,10 +5,11 @@ import  { StyledInput, Paragraph, InputField, Letter } from "./Input.styles";
 import { calcWpm, getTextArray, reducer } from "./Input.utils.js";
 import Loader from "../Loader/Loader.js";
 
-function Input({ isRunning, setIsRunning, isTimeUp, setWpm, time, reset }) {
+function Input({ setIsRunning, isTimeUp, setWpm, time, reset }) {
   const {data, loading} = useFetch(reset);
   const [text, dispatch] = useReducer(reducer, []);
   const [inputText, setInputText] = useState([]);
+  const input = useRef();
   const count = useRef(0);
   const totalCount = useRef(0);
   const errorCount = useRef(0);
@@ -20,7 +21,7 @@ function Input({ isRunning, setIsRunning, isTimeUp, setWpm, time, reset }) {
     // eslint-disable-next-line
   }, [data])
 
-  function verify() {
+  useDidUpdateEffect(() => {
     if (inputText.length - 1 === count.current) {
       totalCount.current = totalCount.current + 1;
       if (inputText[count.current] === text[count.current].letter) {
@@ -35,23 +36,22 @@ function Input({ isRunning, setIsRunning, isTimeUp, setWpm, time, reset }) {
       count.current = inputText.length;
       dispatch({ type: "previous", id: count.current });
     }
-  }
+  }, [inputText]);
 
-  function handleTimeUp() {
+  useDidUpdateEffect(() => {
     if (isTimeUp) {
+      dispatch({ type: "timeup" });
       const total = totalCount.current;
       const error = errorCount.current;
       const incorrect = text.filter(i => i.status === "incorrect").length;
-      setWpm(calcWpm(total, error, incorrect, time));
+      setWpm(calcWpm(total, inputText.length, error, incorrect, time));
     } else {
       dispatch({ type: "reset" });
       setWpm({gross: 0, net: 0, accuracy: 0});
       setInputText([]);
+      input.current.focus();
     }
-  }
-
-  useDidUpdateEffect(verify, [inputText]);
-  useDidUpdateEffect(handleTimeUp, [reset, isTimeUp]);
+  }, [reset, isTimeUp]);
 
   return (
     <StyledInput>
@@ -70,6 +70,7 @@ function Input({ isRunning, setIsRunning, isTimeUp, setWpm, time, reset }) {
             setInputText(c => [...e.target.value]);
             setIsRunning(true);
           }}
+          ref={input}
           disabled={isTimeUp}
           autoFocus
           onBlur={e => e.target.focus()}

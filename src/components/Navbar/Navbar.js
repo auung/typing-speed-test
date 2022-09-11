@@ -1,7 +1,7 @@
 import StyledNavbar from "./Navbar.styles";
 import Timer from "../Timer/Timer";
 import { useContext } from "react";
-import { Context } from "../App/App";
+import { Context } from "../Home/Home";
 import Button from "../../GlobalStyles/Button.styles";
 import ContainerFlex from "../../GlobalStyles/ContainerFlex.styles";
 import ContainerMain from "../../GlobalStyles/ContainerMain.styles";
@@ -14,6 +14,7 @@ function Navbar() {
       <ContainerFlex>
         <Timer />
         <Button>dark</Button>
+        <Button>back</Button>
       </ContainerFlex>
       <ContainerFlex>
         <span>Gross: {wpm.gross}</span>
