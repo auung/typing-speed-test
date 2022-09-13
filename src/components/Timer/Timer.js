@@ -31,7 +31,8 @@ function Timer() {
       }, time*1000)
       setTimeoutID(timeoutPointer);
     }
-  }, [isRunning, time, setIsRunning, setIsTimeUp])
+    // eslint-disable-next-line
+  }, [isRunning])
 
   function resetTimer() {
     setIsRunning(false);

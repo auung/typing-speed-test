@@ -3,7 +3,7 @@ import { RotateLoader } from "react-spinners";
 
 const StyledLoader = styled(RotateLoader)`
   color: ${props => props.theme.black};
-  margin: 10em;
+  margin-top: 10em;
 `
 
 export default StyledLoader;
