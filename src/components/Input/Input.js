@@ -4,8 +4,17 @@ import useFetch from "../../hooks/useFetch.js";
 import  { StyledInput, Paragraph, InputField, Letter } from "./Input.styles";
 import { calcWpm, getTextArray, reducer } from "./Input.utils.js";
 import Loader from "../Loader/Loader.js";
+import { Context } from "../Home/Home.js";
+import { useContext } from "react";
 
-function Input({ setIsRunning, isTimeUp, setWpm, time, reset }) {
+function Input() {
+  const {
+    setIsRunning,
+    isTimeUp,
+    setWpm,
+    time,
+    reset
+  } = useContext(Context);
   const {data, loading} = useFetch(reset);
   const [text, dispatch] = useReducer(reducer, []);
   const [inputText, setInputText] = useState([]);

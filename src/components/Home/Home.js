@@ -29,6 +29,15 @@ function Home() {
     wpm: wpm
   }
 
+  const InputProps = {
+    isRunning: isRunning,
+    setIsRunning: setIsRunning,
+    isTimeUp: isTimeUp,
+    setWpm: setWpm,
+    time: time,
+    reset: reset
+  }
+
   const theme = {
     white: "#000000",
     black: "#06120C",
@@ -49,14 +58,9 @@ function Home() {
         <Context.Provider value={{TimerProps: TimerProps, NavProps: NavProps}}>
           <Navbar />
         </Context.Provider>
-        <Input
-          isRunning={isRunning}
-          setIsRunning={setIsRunning}
-          isTimeUp={isTimeUp}
-          setWpm={setWpm}
-          time={time}
-          reset={reset}
-        />
+        <Context.Provider value={InputProps}>
+          <Input />
+        </Context.Provider>
       </StyledApp>
     </ThemeProvider>
   );
