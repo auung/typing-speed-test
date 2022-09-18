@@ -8,10 +8,8 @@ function Timer() {
   const {
     time,
     isRunning,
-    setIsRunning,
-    setIsTimeUp,
-    reset,
-    setReset
+    handleTimeUp,
+    handleReset
   } = useContext(Context).TimerProps;
   let [displayTime, setDisplayTime] = useState(time);
   const [intervalID, setIntervalID] = useState();
@@ -26,22 +24,12 @@ function Timer() {
 
       const timeoutPointer = setTimeout(() => {
         clearInterval(intervalPointer);
-        setIsRunning(false);
-        setIsTimeUp(true);
+        handleTimeUp();
       }, time*1000)
       setTimeoutID(timeoutPointer);
     }
     // eslint-disable-next-line
   }, [isRunning])
-
-  function resetTimer() {
-    setIsRunning(false);
-    setIsTimeUp(false);
-    setReset(!reset);
-    setDisplayTime(time);
-    clearInterval(intervalID);
-    clearTimeout(timeoutID);
-  }
 
   function formatSeconds(second) {
     return (second === 60) ? "01:00" : (second < 10) ? `00:0${second}` : `00:${second}`;
@@ -50,7 +38,13 @@ function Timer() {
   return (
     <ContainerFlex>
       <Clock>{formatSeconds(displayTime)}</Clock>
-      <Button onClick={resetTimer}>reset</Button>
+      <Button onClick={() => {
+        handleReset();
+        setDisplayTime(time);
+        clearInterval(intervalID);
+        clearTimeout(timeoutID);
+      }}
+      >reset</Button>
     </ContainerFlex>
   );
 }

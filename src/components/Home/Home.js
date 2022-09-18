@@ -1,8 +1,8 @@
 import { createContext, useState } from 'react';
-import StyledApp from "./Home.styles.js";
+import StyledHome from "./Home.styles.js";
 import Navbar from "../Navbar/Navbar.js";
 import Input from '../Input/Input.js';
-import { ThemeProvider } from "styled-components";
+import { useCallback } from "react";
 
 export const Context = createContext();
 
@@ -14,13 +14,22 @@ function Home() {
   const [dark, setDark] = useState(false);
   const [wpm, setWpm] = useState({gross: 0, net: 0, accuracy: 0});
 
+  const handleTimeUp = useCallback(() => {
+    setIsRunning(false);
+    setIsTimeUp(true);
+  }, [])
+
+  const handleReset = useCallback(() => {
+    setIsRunning(false);
+    setIsTimeUp(false);
+    setReset(!reset);
+  }, [reset])
+
   const TimerProps = {
     time: time,
     isRunning: isRunning,
-    setIsRunning: setIsRunning,
-    setIsTimeUp: setIsTimeUp,
-    reset: reset,
-    setReset: setReset
+    handleTimeUp: handleTimeUp,
+    handleReset: handleReset
   }
 
   const NavProps = {
@@ -38,31 +47,15 @@ function Home() {
     reset: reset
   }
 
-  const theme = {
-    white: "#000000",
-    black: "#06120C",
-    green: "#5BF1A0",
-    red: "#F17F5B"
-  }
-
-  const themeDark = {
-    white: "#000000",
-    black: "#06120C",
-    green: "#5BF1A0",
-    red: "#F17F5B"
-  }
-
   return (
-    <ThemeProvider theme={theme}>
-      <StyledApp>
+      <StyledHome>
         <Context.Provider value={{TimerProps: TimerProps, NavProps: NavProps}}>
           <Navbar />
         </Context.Provider>
         <Context.Provider value={InputProps}>
           <Input />
         </Context.Provider>
-      </StyledApp>
-    </ThemeProvider>
+      </StyledHome>
   );
 }
 
