@@ -4,7 +4,6 @@ import { useContext } from "react";
 import { Context } from "../Home/Home";
 import Button from "../../GlobalStyles/Button.styles";
 import ContainerFlex from "../../GlobalStyles/ContainerFlex.styles";
-import ContainerMain from "../../GlobalStyles/ContainerMain.styles";
 
 function Navbar() {
   const { dark, setDark, wpm } = useContext(Context).NavProps;
@@ -14,7 +13,7 @@ function Navbar() {
       <ContainerFlex>
         <Timer />
         <Button>dark</Button>
-        <Button>back</Button>
+        <Button><a href="/">back</a></Button>
       </ContainerFlex>
       <ContainerFlex>
         <span>Gross: {wpm.gross}</span>

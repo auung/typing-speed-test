@@ -18,7 +18,7 @@ function Input() {
   const {data, loading} = useFetch(reset);
   const [text, dispatch] = useReducer(reducer, []);
   const [inputText, setInputText] = useState([]);
-  const input = useRef();
+  const input = useRef(); // For focusing after reset
   const count = useRef(0);
   const totalCount = useRef(0);
   const errorCount = useRef(0);
