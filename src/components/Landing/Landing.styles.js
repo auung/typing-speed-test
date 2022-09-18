@@ -1,5 +1,5 @@
+import { Link } from "react-router-dom";
 import styled from 'styled-components';
-import Button from "../../GlobalStyles/Button.styles";
 
 export const StyledLanding = styled.div`
   width: 100vw;
@@ -39,14 +39,11 @@ export const ContainerBetween = styled.div`
   align-items: center;
 `
 
-export const LandingButton = styled.a`
+export const LandingButton = styled(Link)`
   font-size: 1.25rem;
   text-decoration: none;
   background-color: ${props => props.theme.green};
+  color: ${props => props.theme.black};
   padding: 0.5em 1.5em;
   border-radius: 0.5em;
-`
-
-export const LandingLink = styled(Button)`
-  font-size: 1rem;
 `

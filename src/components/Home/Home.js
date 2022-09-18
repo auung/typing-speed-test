@@ -1,17 +1,14 @@
-import { createContext, useState } from 'react';
+import { useState, useCallback } from "react";
 import StyledHome from "./Home.styles.js";
 import Navbar from "../Navbar/Navbar.js";
 import Input from '../Input/Input.js';
-import { useCallback } from "react";
+import { Context } from "../App/App.js";
 
-export const Context = createContext();
-
-function Home() {
+function Home({ setDark }) {
   const time = 60;
   const [isRunning, setIsRunning] = useState(false);
   const [isTimeUp, setIsTimeUp] = useState(false);
   const [reset, setReset] = useState(true);
-  const [dark, setDark] = useState(false);
   const [wpm, setWpm] = useState({gross: 0, net: 0, accuracy: 0});
 
   const handleTimeUp = useCallback(() => {
@@ -33,7 +30,6 @@ function Home() {
   }
 
   const NavProps = {
-    dark: dark,
     setDark: setDark,
     wpm: wpm
   }
@@ -48,14 +44,12 @@ function Home() {
   }
 
   return (
-      <StyledHome>
-        <Context.Provider value={{TimerProps: TimerProps, NavProps: NavProps}}>
-          <Navbar />
-        </Context.Provider>
-        <Context.Provider value={InputProps}>
-          <Input />
-        </Context.Provider>
-      </StyledHome>
+    <StyledHome>
+      <Context.Provider value={{TimerProps: TimerProps, NavProps: NavProps, InputProps: InputProps}}>
+        <Navbar />
+        <Input />
+      </Context.Provider>
+    </StyledHome>
   );
 }
 

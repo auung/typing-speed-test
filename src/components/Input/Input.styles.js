@@ -10,13 +10,12 @@ export const StyledInput = styled.div`
 export const Paragraph = styled.p`
   font-size: 1.5rem;
   line-height: 2em;
-  color: ${props => props.theme.black};
   padding: 1.5em 0;
 `
 
 const Fade = props => keyframes`
   0% {
-    border-bottom: ${props.theme.black} 4px solid;
+    border-bottom: ${props.theme.font} 4px solid;
   }
 
   100% {
@@ -34,6 +33,16 @@ export const Letter = styled.span`
         return props.theme.green;
       case "incorrect":
         return props.theme.red;
+      default:
+        return "";
+    }
+  }};
+
+  color: ${props => {
+    switch (props.status) {
+      case "correct":
+      case "incorrect":
+        return props.theme.black;
       default:
         return "";
     }

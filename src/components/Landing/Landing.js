@@ -1,19 +1,21 @@
-import { ContainerBetween, ContainerCenter, ContainerRight, LandingButton, LandingContainer, LandingLink, StyledLanding } from "./Landing.styles";
+import Button from "../../GlobalStyles/Button.styles";
+import { ContainerBetween, ContainerCenter, ContainerRight, LandingButton, LandingContainer, StyledLanding } from "./Landing.styles";
 
-function Landing() {
+function Landing({ setDark }) {
+
   return (
     <StyledLanding>
       <LandingContainer>
         <ContainerRight>
-          <LandingLink>dark</LandingLink>
+          <Button onClick={() => setDark(current => !current)} fontSize="1rem">dark</Button>
         </ContainerRight>
         <ContainerCenter>
           <h1>Typing Speed Test</h1>
-          <LandingButton href="/home">Start</LandingButton>
+          <LandingButton to="/home">Start</LandingButton>
         </ContainerCenter>
         <ContainerBetween>
           <span>developed in React.JS</span>
-          <LandingLink>github</LandingLink>
+          <Button fontSize="1rem">github</Button>
         </ContainerBetween>
       </LandingContainer>
     </StyledLanding>

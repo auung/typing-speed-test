@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 const StyledApp = styled.div`
-  color: ${props => props.theme.black};
+  background-color: ${props => props.theme.bg};
+  color: ${props => props.theme.font};
 `
 
 export default StyledApp;

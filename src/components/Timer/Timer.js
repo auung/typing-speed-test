@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Context } from "../Home/Home";
+import { Context } from "../App/App.js";
 import Button from "../../GlobalStyles/Button.styles";
 import ContainerFlex from "../../GlobalStyles/ContainerFlex.styles";
 import { Clock } from "./Timer.styles";

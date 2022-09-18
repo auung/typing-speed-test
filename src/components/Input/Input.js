@@ -4,7 +4,7 @@ import useFetch from "../../hooks/useFetch.js";
 import  { StyledInput, Paragraph, InputField, Letter } from "./Input.styles";
 import { calcWpm, getTextArray, reducer } from "./Input.utils.js";
 import Loader from "../Loader/Loader.js";
-import { Context } from "../Home/Home.js";
+import { Context } from "../App/App.js";
 import { useContext } from "react";
 
 function Input() {
@@ -14,7 +14,7 @@ function Input() {
     setWpm,
     time,
     reset
-  } = useContext(Context);
+  } = useContext(Context).InputProps;
   const {data, loading} = useFetch(reset);
   const [text, dispatch] = useReducer(reducer, []);
   const [inputText, setInputText] = useState([]);

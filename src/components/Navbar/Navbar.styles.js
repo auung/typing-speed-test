@@ -7,7 +7,7 @@ const StyledNavbar = styled.div`
   align-items: center;
   margin: auto;
   padding: 2em 0;
-  border-bottom: 2px ${props => props.theme.black} solid;
+  border-bottom: 2px ${props => props.theme.font} solid;
 `
 
 export default StyledNavbar;

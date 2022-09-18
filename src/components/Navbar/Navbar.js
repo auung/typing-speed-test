@@ -1,19 +1,20 @@
 import StyledNavbar from "./Navbar.styles";
 import Timer from "../Timer/Timer";
 import { useContext } from "react";
-import { Context } from "../Home/Home";
+import { Context } from "../App/App.js";
 import Button from "../../GlobalStyles/Button.styles";
 import ContainerFlex from "../../GlobalStyles/ContainerFlex.styles";
+import { Link } from "react-router-dom";
 
 function Navbar() {
-  const { dark, setDark, wpm } = useContext(Context).NavProps;
+  const { wpm, setDark } = useContext(Context).NavProps;
 
   return (
     <StyledNavbar>
       <ContainerFlex>
         <Timer />
-        <Button>dark</Button>
-        <Button><a href="/">back</a></Button>
+        <Button onClick={() => setDark(current => !current)}>dark</Button>
+        <Button><Link to={"/"}>back</Link></Button>
       </ContainerFlex>
       <ContainerFlex>
         <span>Gross: {wpm.gross}</span>
