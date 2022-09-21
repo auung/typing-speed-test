@@ -13,6 +13,7 @@
     "react-scroll": "^1.8.7",
     "react-spinners": "^0.13.4",
     "react-timer-hook": "^3.0.5",
+    "serve": "^14.0.1",
     "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   },

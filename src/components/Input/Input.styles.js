@@ -1,7 +1,7 @@
 import styled, { css, keyframes }  from 'styled-components';
 
 export const StyledInput = styled.div`
-  width: 75%;
+  width: clamp(300px, 1300px, 90%);
   margin: auto;
   display: flex;
   justify-content: center;

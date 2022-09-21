@@ -5,7 +5,7 @@ function Loader({ className }) {
     <div className={className}>
       <StyledLoader
         margin={-7}
-        size={10}
+        size={"0.75rem"}
         speedMultiplier={0.8}
       />
     </div>

@@ -1,5 +1,4 @@
 import { useState, useCallback } from "react";
-import StyledHome from "./Home.styles.js";
 import Navbar from "../Navbar/Navbar.js";
 import Input from '../Input/Input.js';
 import { Context } from "../App/App.js";
@@ -44,12 +43,10 @@ function Home({ setDark }) {
   }
 
   return (
-    <StyledHome>
-      <Context.Provider value={{TimerProps: TimerProps, NavProps: NavProps, InputProps: InputProps}}>
-        <Navbar />
-        <Input />
-      </Context.Provider>
-    </StyledHome>
+    <Context.Provider value={{TimerProps: TimerProps, NavProps: NavProps, InputProps: InputProps}}>
+      <Navbar />
+      <Input />
+    </Context.Provider>
   );
 }
 

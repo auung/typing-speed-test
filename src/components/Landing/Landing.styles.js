@@ -6,6 +6,7 @@ export const StyledLanding = styled.div`
   height: 100vh;
   display: flex;
   justify-content: center;
+  align-items: center;
 
   h1 {
     font-size: 2.25rem;
@@ -14,11 +15,11 @@ export const StyledLanding = styled.div`
 `;
 
 export const LandingContainer = styled.div`
-  width: 50%;
+  width: clamp(400px, 50%, 80%);
   display: flex;
   flex-direction: column;
   gap: 7em;
-  margin-top: 12em;
+  margin-top: -4em;
 `
 
 export const ContainerRight = styled.div`
