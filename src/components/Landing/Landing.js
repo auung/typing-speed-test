@@ -15,7 +15,7 @@ function Landing({ setDark }) {
         </ContainerCenter>
         <ContainerBetween>
           <span>developed in React.JS</span>
-          <Button fontSize="1rem">github</Button>
+          <Button fontSize="1rem"><a href="https://github.com/auung/typing-speed-test">github</a></Button>
         </ContainerBetween>
       </LandingContainer>
     </StyledLanding>
