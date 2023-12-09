@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react';
 import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import StyledApp from "./App.styles";
 import { ThemeProvider } from "styled-components";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
