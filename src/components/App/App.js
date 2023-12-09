@@ -1,4 +1,6 @@
 import { createContext, useState } from 'react';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import StyledApp from "./App.styles";
 import { ThemeProvider } from "styled-components";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -8,7 +10,6 @@ import Home from "../Home/Home";
 export const Context = createContext();
 
 function App() {
-
   const [dark, setDark] = useState(false);
 
   const router = createBrowserRouter([
@@ -43,6 +44,8 @@ function App() {
       <StyledApp>
         <RouterProvider router={router} />
       </StyledApp>
+      <Analytics />
+      <SpeedInsights />
     </ThemeProvider>
   );
 }
